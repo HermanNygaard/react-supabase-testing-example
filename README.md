@@ -1,1 +1,1 @@
-Source code for http://nygaard.dev/blog/testing-supabase-rtl-msw
+Source code for https://nygaard.dev/blog/testing-supabase-rtl-msw
