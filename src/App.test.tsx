@@ -8,8 +8,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 import App from "./App";
 import { expect, afterEach } from "vitest";
-import matchers from "@testing-library/jest-dom/matchers";
-expect.extend(matchers);
+import "@testing-library/jest-dom";
 
 // The same URL is used when we create our Supabase createClient in App.jsx,
 // which makes us intercept the right URL in MSW
@@ -24,8 +23,10 @@ const server = setupServer(
       case "GET":
         return res(ctx.json(todos));
       case "POST":
-        const newTodo = await req.json();
-        todos.push({ ...newTodo, id: 2 });
+        const body = await req.json();
+        const newTodo = { ...body, id: 2 };
+        todos.push(newTodo);
+        return res(ctx.json(newTodo));
       default:
         return res(ctx.json("Unhandled method"));
     }
